@@ -1,0 +1,10 @@
+{% load tz %}
+
+{% for category in  categories %}
+    <h1>{{ category.title }}</h1>
+    {% timezone "Africa/Nairobi" %}
+        <small>{{ category.created_at }}</small>
+    {% endtimezone %}
+    <a href="{% url 'shop:edit_category' category.id %}">Rekebisha Aina</a>
+    <a href="{% url 'shop:delete_category' category.id %}">Futa Aina</a>
+{% endfor %}

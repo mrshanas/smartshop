@@ -1,0 +1,28 @@
+{% load tz %}
+<a href="{% url 'shop:register_product' %}">Ongeza Bidhaa</a>
+{% for product in products %}
+    <h1>{{product.name}}</h1>
+    <p>{{product.price}}</p>
+    <small>
+        {% timezone "Africa/Nairobi" %}
+        {{product.created_at}}
+        {% endtimezone %}
+    </small>
+    <a href="{% url 'shop:show_product' product.id%}">Angalia Bidhaa</a>
+    <a href="{% url 'shop:edit_product' product.id %}">Rekebisha Bidhaa</a>
+    <a href="{% url 'shop:delete_product' product.id %}">Futa Bidhaa</a>
+{% endfor %}
+
+<!-- Pagination -->
+<div class="">
+    {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+</div>

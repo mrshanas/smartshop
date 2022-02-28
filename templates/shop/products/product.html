@@ -1,0 +1,9 @@
+{% load tz %}
+<h1>{{ product.name }}</h1>
+<a href="{% url 'shop:edit_product' product.id %}">Rekebisha Bidhaa</a>
+<a href="{% url 'shop:delete_product' product.id %}">Futa Bidhaa</a>
+<h2>Wingi: {{ product.quantity }}</h2>
+<p>Bei: {{ product.price }}</p>
+{% timezone "Africa/Nairobi" %}
+    <small>Imewekwa :{{ product.created_at }}</small>
+{% endtimezone %}
