@@ -10,7 +10,8 @@ from .models import Category, Product
 class ProductListView(ListView):
     model = Product
     context_object_name = 'products'
-    template_name = 'shop/products/products.html'
+    # template_name = 'shop/products/products.html'\
+    template_name = 'base.html'
     paginate_by = 5
 
 
