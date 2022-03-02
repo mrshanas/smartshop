@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load tz %}
+{% block title %}Mauzo | Orodha{% endblock title %}
+{% block styles %}
+<style>
+    .pagination {
+    display: inline-block;
+    clear: both;
+    }
+    
+    .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    }
+    
+    .pagination a.active {
+    background-color: #0061f7;
+    color: white;
+    border-radius: 5px;
+    }
+    
+    .pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+    }
+</style>
+{% endblock styles %}
+{% block content %}
+<div class="container">
+    <h2 class="main-title">Mauzo</h2>
+    <div class="col-lg-12">
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo;</a>
+             <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+             {% endif %}
+             <a href="#" class="active">{{ page_obj.number }}</a>
+             {% if page_obj.has_next %}
+             <a href="?page={{ page_obj.next_page_number }}" >{{ page_obj.next_page_number}}</a>
+             <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+             {% endif %}
+        </div>
+      
+      <div class="users-table table-wrapper">
+        
+        <table class="posts-table">
+          <thead>
+            <tr class="users-table-info">
+              <th>#</th>
+              <th>
+                Aina
+              </th>
+              <th>Jina la Bidhaa</th>
+              <th>Zilizobaki</th>
+              <th>Bei (Tsh)</th>
+              <th>Tarehe Iliyouzwa</th>
+              <th>Malipo</th>
+              <th>Chenji</th>
+              <th>Kiwango</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for sale in sales %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td class="">
+                {{ sale.product.category }}
+                </td>
+                <td>{{ sale.product.name }}</td>
+                <td>
+                  {{ sale.product.quantity }}
+                </td>
+                <td>{{ sale.product.price|floatformat }}</td>
+                <td>
+                  {% timezone "Africa/Nairobi" %}
+                    {{ sale.paid_at }}
+                  {% endtimezone %}
+                </td>
+                <td>{{ sale.amount_paid }}</td>
+                <td>{{ sale.amount_given }}</td>
+                <td>{{ sale.quantity_bought }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>     
+</div>
+{% endblock content %}

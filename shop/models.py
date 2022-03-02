@@ -31,3 +31,22 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['-created_at', ]
+
+
+class Sales(models.Model):
+    product = models.OneToOneField(
+        Product, models.CASCADE, related_name='sold'
+    )
+    amount_paid = models.DecimalField(max_digits=7, decimal_places=2)
+    amount_given = models.DecimalField(max_digits=7, decimal_places=2)
+    paid_at = models.DateTimeField(auto_now_add=True)
+    quantity_bought = models.IntegerField()
+
+    def __str__(self):
+        return "model"
+
+    class Meta:
+        ordering = ['-paid_at']
+        db_table = 'shop_sales'
+        verbose_name = 'Sales'
+        verbose_name_plural = 'Sales'

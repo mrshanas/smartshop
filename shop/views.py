@@ -1,9 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
-from .forms import CategoryForm, ProductForm
-from .models import Category, Product
+from .forms import CategoryForm, ProductForm, SalesForm
+from .models import Category, Product, Sales
 
 
 # product views
@@ -104,3 +105,34 @@ def delete_category(request, category_id):
     deleted_product = Category.objects.get(id=category_id).delete()
     print(deleted_product)
     return redirect('shop:categories')
+
+# sales views
+
+
+class SalesListView(ListView):
+    template_name = 'shop/sales/sales.html'
+    context_object_name = 'sales'
+    paginate_by = 10
+    model = Sales
+
+
+def sell_product(request):
+    """Sell a new product"""
+    if request.method != 'POST':
+        form = SalesForm()
+    else:
+        form = SalesForm(data=request.POST)
+
+        if form.is_valid():
+            product = Product.objects.get(
+                id=int(form.cleaned_data['product'].id)
+            )
+            sale = form.save(commit=False)
+            sale_price = float(sale.quantity_bought) * float(product.price)
+            product.quantity -= int(sale.quantity_bought)
+            sale.amount_given = float(sale.amount_paid) - sale_price
+            product.save()
+            form.save()
+            return redirect('shop:sales')
+
+    return render(request, 'shop/sales/sell.html', {'form': form})
