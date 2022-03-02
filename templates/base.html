@@ -11,6 +11,8 @@
     <link rel="shortcut icon" href="{% static 'img/svg/logo.svg' %}" type="image/x-icon" />
     <!-- Custom styles -->
     <link rel="stylesheet" href="{% static 'css/style.min.css' %}" />
+    {% block styles %}{% endblock styles %}
+    
   </head>
 
   <body>
@@ -57,10 +59,10 @@
                 </a>
                 <ul class="cat-sub-menu">
                   <li>
-                    <a href="posts.html">Orodha ya Bidhaa</a>
+                    <a href="{% url 'shop:products' %}">Orodha ya Bidhaa</a>
                   </li>
                   <li>
-                    <a href="new-post.html">Ongeza Bidhaa</a>
+                    <a href="{% url 'shop:register_product' %}">Ongeza Bidhaa</a>
                   </li>
                 </ul>
               </li>
@@ -332,12 +334,11 @@
         </main>
       {% endblock content %}
         <!-- ! Footer -->
-        <footer class="footer">
-          <div class="container footer--flex">
-            <div class="footer-start">
+        <footer class="footer" style="display:block;position:fixed;">
+          <div class="container footer--flex" >
+            <div class="footer-end"  style="display:flex;float:right;">
               <p>
                 2022 © Smartshop
-               
               </p>
             </div>
             <ul class="footer-end">

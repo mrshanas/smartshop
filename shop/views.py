@@ -7,12 +7,19 @@ from .models import Category, Product
 
 
 # product views
+
+def home(request):
+    """Display only 5 products"""
+    queryset = Product.objects.all()[:5]
+
+    return render(request, 'base.html', {'products': queryset})
+
+
 class ProductListView(ListView):
     model = Product
     context_object_name = 'products'
-    # template_name = 'shop/products/products.html'\
-    template_name = 'base.html'
-    paginate_by = 5
+    template_name = 'shop/products/products.html'
+    paginate_by = 10
 
 
 class ProductDetailView(DetailView):
@@ -66,7 +73,7 @@ class CategoryListView(ListView):
 
 
 def register_category(request):
-    """Register new product in the db"""
+    """Register new category in the db"""
     if request.method != 'POST':
         form = CategoryForm()
 
