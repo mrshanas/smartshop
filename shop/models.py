@@ -19,7 +19,7 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=250)
     price = models.DecimalField(max_digits=7, decimal_places=2)
-    quantity = models.IntegerField()
+    quantity = models.PositiveIntegerField(default=1)
     category = models.ForeignKey(
         Category, models.CASCADE, related_name='category'
     )
@@ -34,13 +34,13 @@ class Product(models.Model):
 
 
 class Sales(models.Model):
-    product = models.OneToOneField(
+    product = models.ForeignKey(
         Product, models.CASCADE, related_name='sold'
     )
     amount_paid = models.DecimalField(max_digits=7, decimal_places=2)
     amount_given = models.DecimalField(max_digits=7, decimal_places=2)
     paid_at = models.DateTimeField(auto_now_add=True)
-    quantity_bought = models.IntegerField()
+    quantity_bought = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return "model"
