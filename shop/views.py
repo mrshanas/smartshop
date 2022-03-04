@@ -35,9 +35,18 @@ class ProductCreateView(LoginRequiredMixin, FormView):
     template_name = 'shop/products/add_product.html'
     context_object_name = 'form'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.filter(shop_owner=self.request.user)
+        context['categories'] = categories
+        return context
+
     def form_valid(self, form):
+        category = Category.objects.get(
+            shop_owner=self.request.user, id=int(self.request.POST['category']))
         product = form.save(commit=False)
         product.shop_owner = self.request.user
+        product.category = category
         product.save()
         return super().form_valid(form)
 
@@ -142,6 +151,7 @@ class SalesListView(LoginRequiredMixin, ListView):
 @login_required
 def sell_product(request):
     """Sell a new product"""
+    products = Product.objects.filter(shop_owner=request.user)
     if request.method != 'POST':
         form = SalesForm()
     else:
@@ -149,15 +159,18 @@ def sell_product(request):
 
         if form.is_valid():
             product = Product.objects.get(
-                id=int(form.cleaned_data['product'].id),
+                id=int(request.POST['product']),
                 shop_owner=request.user
             )
             sale = form.save(commit=False)
             sale_price = float(sale.quantity_bought) * float(product.price)
             product.quantity -= int(sale.quantity_bought)
             sale.amount_given = float(sale.amount_paid) - sale_price
+            sale.shop_owner = request.user
+            sale.product = product
             product.save()
-            form.save()
+            sale.save()
+
             return redirect('shop:sales')
 
-    return render(request, 'shop/sales/sell.html', {'form': form})
+    return render(request, 'shop/sales/sell.html', {'form': form, 'products': products})
