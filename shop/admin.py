@@ -6,13 +6,13 @@ from .models import Product, Category, Sales
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'quantity',
-                    'updated_at', 'created_at', 'category']
+                    'updated_at', 'created_at', 'category', 'shop_owner']
     list_filter = ['created_at', 'updated_at', 'category']
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['title', 'created_at', 'updated_at']
+    list_display = ['title', 'created_at', 'updated_at', 'shop_owner']
 
 
 @admin.register(Sales)

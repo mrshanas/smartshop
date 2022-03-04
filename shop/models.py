@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 # Create your models here.
 
 
@@ -7,6 +7,8 @@ class Category(models.Model):
     title = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    shop_owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, models.CASCADE, related_name='shop_owner')
 
     def __str__(self) -> str:
         return self.title
@@ -25,6 +27,7 @@ class Product(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    shop_owner = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE)
 
     def __str__(self) -> str:
         return self.name
@@ -41,6 +44,7 @@ class Sales(models.Model):
     amount_given = models.DecimalField(max_digits=7, decimal_places=2)
     paid_at = models.DateTimeField(auto_now_add=True)
     quantity_bought = models.PositiveIntegerField(default=1)
+    shop_owner = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE)
 
     def __str__(self):
         return "model"

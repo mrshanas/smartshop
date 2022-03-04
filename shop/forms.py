@@ -6,14 +6,14 @@ class ProductForm(forms.ModelForm):
     """Register new products"""
     class Meta:
         model = Product
-        fields = '__all__'
+        exclude = ('shop_owner',)
 
 
 class CategoryForm(forms.ModelForm):
     """Register new products"""
     class Meta:
         model = Category
-        fields = '__all__'
+        exclude = ('shop_owner',)
 
 
 class SalesForm(forms.ModelForm):

@@ -103,24 +103,7 @@
             </ul>
           </div>
         </div>
-        <div class="sidebar-footer">
-          <a href="##" class="sidebar-user">
-            <span class="sidebar-user-img">
-              <picture
-                ><source
-                  srcset="{% static 'img/avatar/avatar-illustrated-01.webp' %}"
-                  type="image/webp" />
-                <img
-                  src="{% static 'img/avatar/avatar-illustrated-01.png' %}"
-                  alt="User name"
-              /></picture>
-            </span>
-            <div class="sidebar-user-info">
-              <span class="sidebar-user__title">Jina La Duka</span>
-              <span class="sidebar-user__subtitle">Support manager</span>
-            </div>
-          </a>
-        </div>
+   
       </aside>
       <div class="main-wrapper">
         <!-- ! Main nav -->
@@ -141,17 +124,7 @@
                 <span class="sr-only">Toggle menu</span>
                 <span class="icon menu-toggle--gray" aria-hidden="true"></span>
               </button>
-              <div class="lang-switcher-wrapper">
-                <button class="lang-switcher transparent-btn" type="button">
-                  SW
-                  <i data-feather="chevron-down" aria-hidden="true"></i>
-                </button>
-                <ul class="lang-menu dropdown">
-                  <li><a href="##">English</a></li>
-                  <li><a href="##">Swahili</a></li>
-                  
-                </ul>
-              </div>
+           
               <button
                 class="theme-switcher gray-circle-btn"
                 type="button"
@@ -195,7 +168,7 @@
                     </a>
                   </li>
                   <li>
-                    <a class="danger" href="##">
+                    <a class="danger" href="{% url 'account_logout' %}">
                       <i data-feather="log-out" aria-hidden="true"></i>
                       <span>Log out</span>
                     </a>
@@ -274,7 +247,7 @@
               <div class="col-lg-12">
                 
                 <div class="users-table table-wrapper">
-                  <h2 class="main-title">Bidhaa</h2>
+                  <h2 class="main-title">Aina za Bidhaa</h2>
                   <table class="posts-table">
                     <thead>
                       <tr class="users-table-info">
@@ -282,28 +255,26 @@
                         <th>
                           Aina
                         </th>
-                        <th>Jina la Bidhaa</th>
-                        <th>Wingi</th>
-                        <th>Bei (Tsh)</th>
-                        <th>Tarehe</th>
-                        <th>Tendo</th>
+                       <th>Tarehe Iliyowekwa</th>
+                       <th>Tarehe Iliyorekebishwa</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {% for product in products %}
+                      {% for category in categories %}
                         <tr>
                           <td>{{ forloop.counter }}</td>
                           <td>
-                          {{ product.category }}
+                          {{ category.title }}
                           </td>
-                          <td>{{ product.name }}</td>
-                          <td>
-                            {{ product.quantity }}
-                          </td>
-                          <td>{{ product.price|floatformat }}</td>
+                          
                           <td>
                             {% timezone "Africa/Nairobi" %}
-                              {{ product.created_at }}
+                              {{ category.created_at }}
+                            {% endtimezone %}
+                          </td>
+                          <td>
+                            {% timezone "Africa/Nairobi" %}
+                              {{ category.updated_at }}
                             {% endtimezone %}
                           </td>
                           <td>
@@ -320,8 +291,8 @@
                                 ></i>
                               </button>
                               <ul class="users-item-dropdown dropdown">
-                                <li><a href="##">Rekebisha</a></li>
-                                <li><a href="##">Futa</a></li>
+                                <li><a href="{% url 'shop:edit_category' category.id %}">Rekebisha</a></li>
+                                <li><a href="{% url 'shop:delete_category' category.id %}">Futa</a></li>
                               </ul>
                             </span>
                           </td>
@@ -337,11 +308,11 @@
         </main>
       {% endblock content %}
         <!-- ! Footer -->
-        <footer class="footer" style="display:block;position:fixed;">
+        <footer class="footer" >
           <div class="container footer--flex" >
             <div class="footer-end"  style="display:flex;float:right;">
               <p>
-                2022 © Smartshop
+                <span id="date"></span> © Smartshop by Shanas
               </p>
             </div>
             <ul class="footer-end">
@@ -359,5 +330,12 @@
     <script src="{% static 'plugins/feather.min.js' %}"></script>
     <!-- Custom scripts -->
     <script src="{% static 'js/script.js' %}"></script>
+    <script>
+      const date = document.getElementById('date');
+      const d = new Date();
+      const currentYear = d.getFullYear();
+      date.innerHTML = currentYear;
+
+    </script>
   </body>
 </html>
