@@ -37,7 +37,7 @@ INSTALLED_APPS = [
 
     # local
     'shop',
-    'accounts',
+
 
     # 3rd party
     'widget_tweaks',

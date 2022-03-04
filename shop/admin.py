@@ -5,19 +5,20 @@ from .models import Product, Category, Sales
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'quantity',
+    list_display = ['id', 'name', 'price', 'quantity',
                     'updated_at', 'created_at', 'category', 'shop_owner']
-    list_filter = ['created_at', 'updated_at', 'category']
+    list_filter = ['created_at', 'updated_at', 'category', 'shop_owner']
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['title', 'created_at', 'updated_at', 'shop_owner']
+    list_filter = ['shop_owner', ]
 
 
 @admin.register(Sales)
 class SalesAdmin(admin.ModelAdmin):
     list_display = ['product', 'paid_at',
                     'amount_paid', 'amount_given', 'quantity_bought']
-    list_filter = ['paid_at']
+    list_filter = ['paid_at', 'shop_owner']
     date_hierarchy = 'paid_at'
