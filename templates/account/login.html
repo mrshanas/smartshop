@@ -1,0 +1,54 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elegant Dashboard | Sign In</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{% static 'img/svg/logo.svg' %}" type="image/x-icon">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+</head>
+
+<body>
+  <div class="layer"></div>
+<main class="page-center">
+  <article class="sign-up">
+    <h1 class="sign-up__title">Karibu Smartshop!</h1>
+    <p class="sign-up__subtitle">Ingia katika duka lako</p>
+    <form class="sign-up-form form" action="{% url 'account_login' %}" method="POST">
+      {% csrf_token %}
+      <label class="form-label-wrapper">
+        
+        <!--<input class="form-input" type="email" placeholder="Enter your email" required>-->
+        {{ form.login|attr:"class=form-input"|attr:"placeholder=Username" }}
+        
+      </label>
+      <label class="form-label-wrapper">
+        
+        <!--<input class="form-input" type="password" placeholder="Enter your password" required>-->
+        {{ form.password|attr:"class:form-input"|attr:"placeholder:Enter password" }}
+      </label>
+      <a class="link-info forget-link" href="{% url 'account_reset_password' %}">Umesahau password?</a>
+      <label class="form-checkbox-wrapper">
+        <!--<input class="form-checkbox" type="checkbox" required>-->
+        {{ form.remember|attr:"class:form-checkbox"|attr:"type:checkbox"}}
+        <span class="form-checkbox-label">Remember me next time</span>
+      </label>
+      <button class="form-btn primary-default-btn transparent-btn" type="submit">Ingia</button>
+    </form>
+  </article>
+</main>
+<!-- Chart library -->
+<script src="./plugins/chart.min.js"></script>
+<!-- Icons library -->
+<script src="plugins/feather.min.js"></script>
+<!-- Custom scripts -->
+<script src="js/script.js"></script>
+</body>
+
+</html>
