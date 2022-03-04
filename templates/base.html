@@ -76,7 +76,10 @@
                 </a>
                 <ul class="cat-sub-menu">
                   <li>
-                    <a href="categories.html">Orodha</a>
+                    <a href="{% url 'shop:categories' %}">Orodha</a>
+                  </li>
+                  <li>
+                    <a href="{% url 'shop:register_category' %}">Ongeza Aina ya Bidhaa</a>
                   </li>
                 </ul>
               </li>
@@ -93,7 +96,7 @@
                     <a href="{% url 'shop:sales' %}">Orodha ya Mauzo</a>
                   </li>
                   <li>
-                    <a href="{% url 'shop:sell' %}">Uza</a>
+                    <a href="{% url 'shop:sell' %}">Uza Bidhaa</a>
                   </li>
                 </ul>
               </li>

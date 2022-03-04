@@ -1,10 +1,106 @@
+{% extends 'base.html' %}
 {% load tz %}
 
-{% for category in  categories %}
-    <h1>{{ category.title }}</h1>
-    {% timezone "Africa/Nairobi" %}
-        <small>{{ category.created_at }}</small>
-    {% endtimezone %}
-    <a href="{% url 'shop:edit_category' category.id %}">Rekebisha Aina</a>
-    <a href="{% url 'shop:delete_category' category.id %}">Futa Aina</a>
-{% endfor %}
+{% block title %}Aina za Bidhaa | Orodha{% endblock title %}
+{% block styles %}
+    <style>
+        .pagination {
+        display: inline-block;
+        clear: both;
+        }
+        
+        .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        }
+        
+        .pagination a.active {
+        background-color: #0061f7;
+        color: white;
+        border-radius: 5px;
+        }
+        
+        .pagination a:hover:not(.active) {
+        background-color: #ddd;
+        border-radius: 5px;
+        }
+    </style>
+{% endblock styles %}
+{% block content %}
+   
+     <div class="container">
+        <h2 class="main-title">Aina za Bidhaa</h2>
+        <div class="col-lg-12">
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo;</a>
+                 <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                 {% endif %}
+                 <a href="#" class="active">{{ page_obj.number }}</a>
+                 {% if page_obj.has_next %}
+                 <a href="?page={{ page_obj.next_page_number }}" >{{ page_obj.next_page_number}}</a>
+                 <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+                 {% endif %}
+            </div>
+          
+          <div class="users-table table-wrapper">
+            
+            <table class="posts-table">
+              <thead>
+                <tr class="users-table-info">
+                  <th>#</th>
+                  <th>
+                    Aina
+                  </th>
+                  <th>Tarehe Iliyosajiliwa</th>
+                  <th>Tarehe Iliyorekebishwa</th>
+                  <th>Tendo</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for category in categories %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td class="">
+                    {{ category.title }}
+                    </td>
+                
+                    <td>
+                      {% timezone "Africa/Nairobi" %}
+                        {{ category.created_at }}
+                      {% endtimezone %}
+                    </td>
+                    <td>
+                        {% timezone "Africa/Nairobi" %}
+                          {{ category.updated_at }}
+                        {% endtimezone %}
+                      </td>
+                    <td>
+                      <span class="p-relative">
+                        <button
+                          class="dropdown-btn transparent-btn"
+                          type="button"
+                          title="More info"
+                        >
+                          <div class="sr-only">Tendo</div>
+                          <i
+                            data-feather="more-horizontal"
+                            aria-hidden="true"
+                          ></i>
+                        </button>
+                        <ul class="users-item-dropdown dropdown">
+                          <li><a href="{% url 'shop:edit_category' category.id %}">Rekebisha</a></li>
+                          <li><a href="{% url 'shop:delete_category' category.id %}">Futa</a></li>
+                        </ul>
+                      </span>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>     
+    </div>
+{% endblock content %}

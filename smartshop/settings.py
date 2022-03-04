@@ -33,14 +33,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # local
     'shop',
+    'accounts',
 
     # 3rd party
-    'crispy_forms',
+    'widget_tweaks',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +59,16 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'smartshop.urls'
+
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
 
 TEMPLATES = [
     {
@@ -127,4 +143,13 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# email settings
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# allauth settings
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+LOGIN_REDIRECT_URL = '/'

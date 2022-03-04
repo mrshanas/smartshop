@@ -59,7 +59,8 @@
                   <th>Jina la Bidhaa</th>
                   <th>Wingi</th>
                   <th>Bei (Tsh)</th>
-                  <th>Tarehe</th>
+                  <th>Tarehe Iliyowekwa</th>
+                  <th>Tarehe Iliyorekebishwa</th>
                   <th>Tendo</th>
                 </tr>
               </thead>
@@ -78,6 +79,11 @@
                     <td>
                       {% timezone "Africa/Nairobi" %}
                         {{ product.created_at }}
+                      {% endtimezone %}
+                    </td>
+                    <td>
+                      {% timezone "Africa/Nairobi" %}
+                        {{ product.updated_at }}
                       {% endtimezone %}
                     </td>
                     <td>

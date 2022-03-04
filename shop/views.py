@@ -1,6 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
+from django.views.generic import ListView, FormView
 
 from .forms import CategoryForm, ProductForm, SalesForm
 from .models import Category, Product, Sales
@@ -22,24 +21,15 @@ class ProductListView(ListView):
     paginate_by = 10
 
 
-class ProductDetailView(DetailView):
-    model = Product
-    context_object_name = 'product'
-    template_name = 'shop/products/product.html'
-    pk_url_kwarg = 'product_id'
+class ProductCreateView(FormView):
+    form_class = ProductForm
+    success_url = '/products/'
+    template_name = 'shop/products/add_product.html'
+    context_object_name = 'form'
 
-
-def register_product(request):
-    """Register new product in the db"""
-    if request.method != 'POST':
-        form = ProductForm()
-
-    else:
-        form = ProductForm(data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('shop:home')
-    return render(request, 'shop/products/add_product.html', {'form': form})
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 
 def edit_product(request, product_id):
@@ -70,6 +60,7 @@ class CategoryListView(ListView):
     model = Category
     context_object_name = 'categories'
     template_name = 'shop/categories/categories.html'
+    paginate_by = 10
 
 
 def register_category(request):
@@ -91,7 +82,7 @@ def edit_category(request, category_id):
     if request.method != "POST":
         form = CategoryForm(instance=category)
     else:
-        form = CategoryForm(data=request.GET, instance=category)
+        form = CategoryForm(data=request.POST, instance=category)
         if form.is_valid():
             form.save()
             return redirect('shop:categories')
