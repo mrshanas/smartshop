@@ -1,0 +1,10 @@
+{% extends 'account/login.html' %}
+{% block title %}Success{% endblock title %}
+{% block account %}
+    <h1 class="sign-up_title">Hakiki email yako</h1>
+    <p class="sign-up__subtitle">Tafadhali hakiki <a href="mailto:{{ email }}">{{ email }}</a> ni email yako</p>
+    <form action="{% url 'account_confirm_email' confirmation.key %}" method="post" class="form">
+        {% csrf_token %}
+        <input type="submit" value="Hakiki" class="form-btn primary-default-btn transparent-btn">
+    </form>
+{% endblock account %}

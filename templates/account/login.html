@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ingia Dukani</title>
+  <title>{% block title %}Ingia Dukani{% endblock title %} </title>
   <!-- Favicon -->
   <link rel="shortcut icon" href="{% static 'img/svg/logo.svg' %}" type="image/x-icon">
   <!-- Custom styles -->
@@ -15,9 +15,10 @@
 </head>
 
 <body>
-  <div class="layer"></div>
+  <!--<div class="layer"></div>-->
 <main class="page-center">
   <article class="sign-up">
+    {% block account %}
     <h1 class="sign-up__title">Karibu Smartshop!</h1>
     <p class="sign-up__subtitle">Ingia katika duka lako au <a href="{{ signup_url }}" class="link-info forget-link">Fungua akaunti</a></p>
   
@@ -47,6 +48,7 @@
       {% endif %}
       <button class="form-btn primary-default-btn transparent-btn" type="submit">Ingia</button>
     </form>
+    {% endblock account %}
   </article>
 </main>
 <!-- Chart library -->

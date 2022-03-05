@@ -1,10 +1,32 @@
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <select name="product" id="id_product" required>
-        {% for product in products %}
-            <option value="{{ product.id }}">{{ product.name }}</option>
-        {% endfor %}
-    </select>
-    <input type="submit" value="Uza">
-</form>
+
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}Uza Bidhaa{% endblock title %}
+{% block content %}
+<main class="main users chart-page" id="skip-target">
+    <h2 class="main-title" align="center">Uza Bidhaa</h2>
+    <div class="container page-center">
+    <form action="" method="post" class="form ">
+        {% csrf_token %}
+        
+        <label for="id_amount_paid" class="form-label-wraper">
+            <p class="form-label">Pesa aliyolipa mteja</p>
+            {{ form.amount_paid|attr:"class:form-input"|attr:"placeholder:Weka pesa iliyolipwa..." }}
+        </label>
+        <label for="id_quantity_bought" class="form-label-wraper">
+            <p class="form-label">Wingi wa Bidhaa zilizonunuliwa</p>
+            {{ form.quantity_bought|attr:"class:form-input"|attr:"placeholder:Wingi wa bidhaa zilizonunuliwa..." }}
+        </label>
+        <br/>
+        <p class="form-label">Bidhaa</p>
+        <select name="product" id="id_product" class="form-input" required>
+            {% for product in products %}
+                <option value="{{ product.id }}">{{ product.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Uza Bidhaa" class="form-btn primary-default-btn transparent-btn">
+    </form>
+    </div>
+</main>
+{% endblock content %}

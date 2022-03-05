@@ -1,5 +1,3 @@
-from unicodedata import category
-from urllib import request
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, FormView
 from django.contrib.auth.decorators import login_required
@@ -55,7 +53,9 @@ class ProductCreateView(LoginRequiredMixin, FormView):
 def edit_product(request, product_id):
     """Edit the selected product"""
     product = get_object_or_404(
-        Product, id=product_id, shop_owner=request.user)
+        Product, id=product_id, shop_owner=request.user
+    )
+    categories = Category.objects.filter(shop_owner=request.user)
 
     if request.method != 'POST':
         form = ProductForm(instance=product)
@@ -65,7 +65,7 @@ def edit_product(request, product_id):
             form.save()
             return redirect('shop:products')
 
-    return render(request, 'shop/products/edit_product.html', {'form': form})
+    return render(request, 'shop/products/edit_product.html', {'form': form, 'categories': categories})
 
 
 @login_required

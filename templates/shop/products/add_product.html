@@ -1,11 +1,35 @@
-
-<form action="" method="post" >
-    {% csrf_token %}
-    {{ form }}
-    <select name="category" id="id_category">
-        {% for category in categories %}
-            <option value="{{ category.id }}">{{ category.title }}</option>
-        {% endfor %}
-    </select>
-    <input type="submit" value="Add">
-</form>
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}Ongeza Bidhaa{% endblock title %}
+{% block content %}
+<main class="main users chart-page" id="skip-target">
+    <h2 class="main-title" align="center">Ongeza Bidhaa</h2>
+    <div class="container page-center">
+    <form action="" method="post" class="form ">
+        {% csrf_token %}
+        <label for="id_name" class="form-label-wraper">
+            <p class="form-label">Jina la Bidhaa</p>
+            {{ form.name|attr:"class:form-input"|attr:"placeholder:Andika jina la bidhaa..." }}
+        </label>
+        <label for="id_price" class="form-label-wraper">
+            <p class="form-label">Bei ya Bidhaa (Bei ya bidhaa moja)</p>
+            {{ form.price|attr:"class:form-input"|attr:"placeholder:Weka bei ya bidhaa..." }}
+        </label>
+        <label for="id_quantity" class="form-label-wraper">
+            <p class="form-label">Wingi wa Bidhaa</p>
+            {{ form.quantity|attr:"class:form-input"|attr:"placeholder:Wingi wa bidhaa..." }}
+        </label>
+        <br/>
+        <p class="form-label">Aina</p>
+        <select name="category" id="id_category" class="form-input" required>
+            
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.title }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Ongeza Bidhaa" class="form-btn primary-default-btn transparent-btn">
+    </form>
+    </div>
+</main>
+{% endblock content %}

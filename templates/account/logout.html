@@ -1,0 +1,13 @@
+{% extends 'account/login.html' %}
+{% block title %}Toka Dukani{% endblock title %}
+{% block account %}
+<h1 class="sign-up__title">Toka katika akaunti</h1>
+<p class="sign-up__subtitle">Bonyeza apo chini kutoka katika duka lako</p>
+<form action="{% url 'account_logout' %}" method="post">
+    {% csrf_token %}
+    {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name}}" value="{{ redirect_field_value}}"/>
+    {% endif %}
+    <button type="submit" class="form-btn primary-default-btn transparent-btn">Toka Dukani</button>
+</form>
+{% endblock account %}

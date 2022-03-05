@@ -1,5 +1,20 @@
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Rekebisha">
-</form>
+
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}Rekebisha Aina ya Bidhaa{% endblock title %}
+{% block content %}
+<main class="main users chart-page" id="skip-target">
+    <h2 class="main-title" align="center">Rekebisha Aina ya Bidhaa</h2>
+    <div class="container page-center">
+    <form action="" method="post" class="form ">
+        {% csrf_token %}
+        <label for="id_name" class="form-label-wraper">
+            <p class="form-label">Aina ya Bidhaa</p>
+            {{ form.title|attr:"class:form-input"|attr:"placeholder:Andika aina ya bidhaa..." }}
+        </label>
+        <input type="submit" value="Rekebisha" class="form-btn primary-default-btn transparent-btn">
+    </form>
+    </div>
+</main>
+{% endblock content %}
