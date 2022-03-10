@@ -1,6 +1,6 @@
 # Smartshop
 Manage and keep track of your shop anywhere
-<!-- Add video here -->
+
 
 # 📋 Project Description
 This app allows shopkeepers to manage the shop by tracking sales and stock from anywhere, and it also acts as a POS by generating receipts for each transactions
