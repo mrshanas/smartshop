@@ -59,7 +59,8 @@
               <th>Tarehe Iliyouzwa</th>
               <th>Malipo</th>
               <th>Chenji</th>
-              <th>Kiwango</th>
+              <th>Kiwango Kilichonunuliwa</th>
+              <th>Pesa iliyoingia</th>
             </tr>
           </thead>
           <tbody>
@@ -81,7 +82,8 @@
                 </td>
                 <td>{{ sale.amount_paid }}</td>
                 <td>{{ sale.amount_given }}</td>
-                <td>{{ sale.quantity_bought }}</td>
+                <td align="center">{{ sale.quantity_bought }}</td>
+                <td>{{ sale.income }}</td>
               </tr>
             {% endfor %}
           </tbody>
@@ -90,4 +92,5 @@
     </div>     
 </div>
 </main>
+{% include 'shop/footer.html' %}
 {% endblock content %}

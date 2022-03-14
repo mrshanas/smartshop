@@ -7,6 +7,9 @@
 <main class="main users chart-page" id="skip-target">
     <h2 class="main-title" align="center">Uza Bidhaa</h2>
     <div class="container page-center">
+        {% if form.errors %}
+            {{ form.errors }}
+        {% endif %}
     <form action="" method="post" class="form ">
         {% csrf_token %}
         

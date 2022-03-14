@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Smartshop{% endblock %}</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{% static 'img/svg/logo.svg' %}" type="image/x-icon" />
     <!-- Custom styles -->
     <link rel="stylesheet" href="{% static 'css/style.min.css' %}" />
     {% block styles %}{% endblock styles %}
@@ -112,7 +111,7 @@
             <div class="main-nav-start">
               <div class="search-wrapper">
                 <i data-feather="search" aria-hidden="true"></i>
-                <input type="text" placeholder="Tafuta..." required />
+                <input type="text" placeholder="Tafuta Bidhaa..." required />
               </div>
             </div>
             <div class="main-nav-end">
@@ -155,7 +154,7 @@
                   </span>
                 </button>
                 <ul class="users-item-dropdown nav-user-dropdown dropdown">
-                  <li>
+                  <!--<li>
                     <a href="##">
                       <i data-feather="user" aria-hidden="true"></i>
                       <span>Duka Langu</span>
@@ -166,11 +165,11 @@
                       <i data-feather="settings" aria-hidden="true"></i>
                       <span>Mpangilio</span>
                     </a>
-                  </li>
+                  </li>-->
                   <li>
                     <a class="danger" href="{% url 'account_logout' %}">
                       <i data-feather="log-out" aria-hidden="true"></i>
-                      <span>Log out</span>
+                      <span>Log Out</span>
                     </a>
                   </li>
                 </ul>
@@ -190,11 +189,11 @@
                     <i data-feather="bar-chart-2" aria-hidden="true"></i>
                   </div>
                   <div class="stat-cards-info">
-                    <p class="stat-cards-info__num">1478 286</p>
-                    <p class="stat-cards-info__title">Mauzo</p>
-                    <p class="stat-cards-info__progress">
+                    <p class="stat-cards-info__num">Tsh {{ sales }}</p>
+                    <p class="stat-cards-info__title">Jumla ya Mauzo</p>
+                    <!--<p class="stat-cards-info__progress">
                       Last month
-                    </p>
+                    </p>-->
                   </div>
                 </article>
               </div>
@@ -204,11 +203,11 @@
                     <i data-feather="file" aria-hidden="true"></i>
                   </div>
                   <div class="stat-cards-info">
-                    <p class="stat-cards-info__num">1478 286</p>
+                    <p class="stat-cards-info__num">{{ products.count }}</p>
                     <p class="stat-cards-info__title">Bidhaa zilizopo</p>
-                    <p class="stat-cards-info__progress">
+                    <!--<p class="stat-cards-info__progress">
                       Last month
-                    </p>
+                    </p>-->
                   </div>
                 </article>
               </div>
@@ -218,15 +217,15 @@
                     <i data-feather="file" aria-hidden="true"></i>
                   </div>
                   <div class="stat-cards-info">
-                    <p class="stat-cards-info__num">1478 286</p>
+                    <p class="stat-cards-info__num">{{ categories.count }}</p>
                     <p class="stat-cards-info__title">Aina za bidhaa zilizopo</p>
-                    <p class="stat-cards-info__progress">
+                    <!--<p class="stat-cards-info__progress">
                       Last month
-                    </p>
+                    </p>-->
                   </div>
                 </article>
               </div>
-              <div class="col-md-6 col-xl-3">
+              <!--<div class="col-md-6 col-xl-3">
                 <article class="stat-cards-item">
                   <div class="stat-cards-icon success">
                     <i data-feather="feather" aria-hidden="true"></i>
@@ -234,16 +233,16 @@
                   <div class="stat-cards-info">
                     <p class="stat-cards-info__num">1478 286</p>
                     <p class="stat-cards-info__title">Kiasi cha mauzo</p>
-                    <p class="stat-cards-info__progress">
-                      
+                    <!--<p class="stat-cards-info__progress">
                       Last month
                     </p>
-                  </div>
+                  </div>-->
                 </article>
               </div>
             </div>
             
-            <div class="row">
+            <div class="container">
+              <div class="row">
               <div class="col-lg-12">
                 
                 <div class="users-table table-wrapper">
@@ -257,6 +256,7 @@
                         </th>
                        <th>Tarehe Iliyowekwa</th>
                        <th>Tarehe Iliyorekebishwa</th>
+                       <th>Tendo</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -302,26 +302,13 @@
                   </table>
                 </div>
               </div>
-              
+            </div>
             </div>
           </div>
         </main>
       {% endblock content %}
         <!-- ! Footer -->
-        <footer class="footer" >
-          <div class="container footer--flex" >
-            <div class="footer-end"  style="display:flex;float:right;">
-              <p>
-                <strong>Smartshop</strong> <br>
-                <span id="date"></span> © <a href="https://github.com/mrshanas" target="_blank" style="text-decoration:none;">Shanas
-              </p>
-            </div>
-            <ul class="footer-end">
-              <li><a href="mailto:nassibshaban345@gmail.com">Unahitaji Msaada</a></li>
-              <li><a href="tel:+255716689401">Wasiliana Nasi</a></li>
-            </ul>
-          </div>
-        </footer>
+        <!--{% include 'shop/footer.html' %}-->
       </div>
     </div>
     <!-- Chart library -->

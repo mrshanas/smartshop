@@ -44,6 +44,7 @@ class Sales(models.Model):
     amount_given = models.DecimalField(max_digits=7, decimal_places=2)
     paid_at = models.DateTimeField(auto_now_add=True)
     quantity_bought = models.PositiveIntegerField(default=1)
+    income = models.DecimalField(max_digits=9, decimal_places=2)
     shop_owner = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE)
 
     def __str__(self):

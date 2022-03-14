@@ -3,6 +3,7 @@ from django.views.generic import ListView, FormView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
+from django.db.models import Sum
 
 from .forms import CategoryForm, ProductForm, SalesForm
 from .models import Category, Product, Sales
@@ -11,10 +12,13 @@ from .models import Category, Product, Sales
 # product views
 @login_required
 def home(request):
-    """Display only 5 products"""
+    """Display only 5 categories"""
     queryset = Category.objects.filter(shop_owner=request.user)
+    total_sales = Sales.objects.filter(
+        shop_owner=request.user).aggregate(Sum('income'))
+    products = Product.objects.all().filter(shop_owner=request.user)
 
-    return render(request, 'base.html', {'categories': queryset})
+    return render(request, 'base.html', {'categories': queryset, 'sales': total_sales['income__sum'], 'products': products})
 
 
 class ProductListView(LoginRequiredMixin, ListView):
@@ -165,7 +169,10 @@ def sell_product(request):
             sale = form.save(commit=False)
             sale_price = float(sale.quantity_bought) * float(product.price)
             product.quantity -= int(sale.quantity_bought)
-            sale.amount_given = float(sale.amount_paid) - sale_price
+            amount_given = float(sale.amount_paid) - sale_price
+            # if a customer pays less than the actual price
+            sale.amount_given = amount_given if amount_given >= 0 else 0
+            sale.income = sale_price
             sale.shop_owner = request.user
             sale.product = product
             product.save()
