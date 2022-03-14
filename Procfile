@@ -1,0 +1,1 @@
+web: gunicorn smartshop.wsgi --log-file -

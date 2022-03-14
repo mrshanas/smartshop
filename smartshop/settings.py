@@ -3,6 +3,7 @@
 import os
 import environ
 from pathlib import Path
+import django_heroku
 
 env = environ.Env(DEBUG=(bool, False))
 
@@ -135,6 +136,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -153,3 +155,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
 LOGIN_REDIRECT_URL = '/'
+
+# configs fo heroku
+django_heroku.settings(locals())
