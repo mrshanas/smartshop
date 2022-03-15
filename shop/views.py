@@ -182,7 +182,6 @@ def sell_product(request):
 
     return render(request, 'shop/sales/sell.html', {'form': form, 'products': products})
 
-# TODO smtp email backend
 # TODO transactions pdf
 # TODO styling and responsivity
 # TODO filter the sales according to period

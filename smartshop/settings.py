@@ -168,8 +168,6 @@ EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'admin@nasmart.mrshanas.com'
-
 
 # configs fo heroku
 django_heroku.settings(locals())
