@@ -181,3 +181,9 @@ def sell_product(request):
             return redirect('shop:sales')
 
     return render(request, 'shop/sales/sell.html', {'form': form, 'products': products})
+
+# TODO smtp email backend
+# TODO transactions pdf
+# TODO styling and responsivity
+# TODO filter the sales according to period
+# TODO implement the search product functionality
