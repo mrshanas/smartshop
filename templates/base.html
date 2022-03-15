@@ -1,5 +1,6 @@
 {% load static %}
 {% load tz %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -110,8 +111,15 @@
           <div class="container main-nav">
             <div class="main-nav-start">
               <div class="search-wrapper">
-                <i data-feather="search" aria-hidden="true"></i>
-                <input type="text" placeholder="Tafuta Bidhaa..." required />
+                <!--<i data-feather="search" aria-hidden="true"></i>-->
+                <!--<form action="{% url 'shop:home' %}">
+                
+              </form>-->
+              <!--<form action="{% url 'shop:home' %}" method='GET'>
+                <!--{{ search_form }}
+                {% csrf_token %}
+                <input type="text" placeholder="Tafuta Bidhaa..." required name='search'/>
+              </form>-->
               </div>
             </div>
             <div class="main-nav-end">

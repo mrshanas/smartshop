@@ -12,13 +12,24 @@ from .models import Category, Product, Sales
 # product views
 @login_required
 def home(request):
-    """Display only 5 categories"""
+    """Display only 5 categories and search form"""
+
     queryset = Category.objects.filter(shop_owner=request.user)
     total_sales = Sales.objects.filter(
         shop_owner=request.user).aggregate(Sum('income'))
     products = Product.objects.all().filter(shop_owner=request.user)
+    # if 'search' in request.GET:
+    #     redirect('shop:search')
 
-    return render(request, 'base.html', {'categories': queryset, 'sales': total_sales['income__sum'], 'products': products})
+    return render(request, 'base.html', {'categories': queryset, 'sales': total_sales['income__sum'], 'products': products, })
+
+
+# def search_product(request):
+#     """Search for a specific product"""
+#     product = Product.objects.filter(
+#         name__search=request.GET['search'], shop_owner=request.user)
+#     # print(product)
+#     return render(request, 'shop/products/search.html', {product: product})
 
 
 class ProductListView(LoginRequiredMixin, ListView):

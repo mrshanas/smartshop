@@ -25,4 +25,7 @@ urlpatterns = [
     # sales url
     path('sales/', SalesListView.as_view(), name='sales'),
     path('sales/sell/', views.sell_product, name='sell'),
+
+    # search url
+    # path('product/search', views.search_product, name='search')
 ]

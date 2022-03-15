@@ -22,3 +22,8 @@ class SalesForm(forms.ModelForm):
     class Meta:
         model = Sales
         exclude = ('amount_given', 'shop_owner', 'product', 'income')
+
+
+# class SearchForm(forms.Form):
+#     """Search queries for product only"""
+#     search = forms.CharField(max_length=200, required=True)
