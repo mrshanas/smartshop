@@ -37,18 +37,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',  # docs ui
     'django.contrib.sites',
     'django.contrib.postgres',
 
+    # api
+    'api',
+
     # local
     'shop',
-
 
     # 3rd party
     'widget_tweaks',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'rest_framework'
 ]
 
 SITE_ID = 1
@@ -109,10 +113,11 @@ WSGI_APPLICATION = 'smartshop.wsgi.application'
 # }
 
 
-DATABASES = {'default': {
-    'ENGINE': 'django.db.backends.sqlite3',
-    'NAME': BASE_DIR / 'db.sqlite3',
-}}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -149,7 +154,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
