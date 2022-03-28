@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from shop.models import Product, Category
+from shop.models import Product, Category, Sales
 
 
 class ProductsSerializer(serializers.ModelSerializer):
@@ -23,3 +23,9 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['id', 'title']
+
+
+class SalesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sales
+        exclude = ['shop_owner', 'amount_given', 'income']

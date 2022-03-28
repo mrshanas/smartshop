@@ -19,6 +19,6 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Sales)
 class SalesAdmin(admin.ModelAdmin):
     list_display = ['product', 'paid_at',
-                    'amount_paid', 'amount_given', 'quantity_bought', 'income']
+                    'amount_paid', 'amount_given', 'shop_owner', 'quantity_bought', 'income']
     list_filter = ['paid_at', 'shop_owner']
     date_hierarchy = 'paid_at'

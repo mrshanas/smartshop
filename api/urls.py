@@ -3,7 +3,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-from .views import ProductListAndCreateView, CategoryListAndCreateView
+from .views import ProductListAndCreateView, CategoryListAndCreateView, SalesListAndCreateView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -20,8 +20,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     # urls
-    path('products/', ProductListAndCreateView.as_view(), name='Products'),
-    path('categories/', CategoryListAndCreateView.as_view(), name='Categories'),
+    path('products/', ProductListAndCreateView.as_view()),
+    path('categories/', CategoryListAndCreateView.as_view(), ),
+    path('sales/', SalesListAndCreateView.as_view()),
 
     # docs
     path('', schema_view.with_ui('swagger', cache_timeout=0),
