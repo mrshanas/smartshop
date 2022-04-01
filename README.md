@@ -15,7 +15,7 @@ This app allows shopkeepers to manage the shop by tracking sales and stock from 
 # Frameworks
 [Django](https://djangoproject.com)
 
-You can find a live demo of the project at 👉 [nasmart.mrshanas.com](https://nasmart.mrshanas.com)
+You can find a live demo of the project at 👉 [pos-smartshop.herokuapp.com](https://pos-smartshop.herokuapp.com)
 
 # Contributing to this project
 - Contributions, issues and feature request are welcome
