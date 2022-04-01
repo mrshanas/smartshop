@@ -61,3 +61,4 @@ You can find a live demo of the project at 👉 [pos-smartshop.herokuapp.com](ht
   Feel free to check the issues page to know where to start 
   
   ### Kindly show your support by giving this project a ⭐
+  This project is **MIT** Licensed
