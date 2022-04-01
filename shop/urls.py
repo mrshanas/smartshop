@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import ProductListView, CategoryListView, SalesListView, ProductCreateView
+from .views import (ProductListView, CategoryListView,
+                    SalesListView, ProductCreateView, SellProductView)
 from . import views
 
 app_name = 'shop'
@@ -24,7 +25,10 @@ urlpatterns = [
 
     # sales url
     path('sales/', SalesListView.as_view(), name='sales'),
-    path('sales/sell/', views.sell_product, name='sell'),
+    path('sales/sell/', SellProductView.as_view(), name='sell'),
+
+    # generate receipt
+    path('sales/receipt/<int:sale_id>/', views.generate_receipt, name='receipt'),
 
     # search url
     # path('product/search', views.search_product, name='search')
