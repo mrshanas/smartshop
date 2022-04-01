@@ -61,6 +61,7 @@
               <th>Chenji</th>
               <th>Kiwango Kilichonunuliwa</th>
               <th>Pesa iliyoingia</th>
+              <th>Tendo</th>
             </tr>
           </thead>
           <tbody>
@@ -84,6 +85,7 @@
                 <td>{{ sale.amount_given }}</td>
                 <td align="center">{{ sale.quantity_bought }}</td>
                 <td>{{ sale.income }}</td>
+                <td><a href="{% url 'shop:receipt' sale.id %}">Risiti</a></td>
               </tr>
             {% endfor %}
           </tbody>

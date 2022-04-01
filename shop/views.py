@@ -2,11 +2,14 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, FormView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.db.models import Sum
+from django.template.loader import render_to_string
 
 from .forms import CategoryForm, ProductForm, SalesForm
 from .models import Category, Product, Sales
+
+from weasyprint import HTML
 
 
 # product views
@@ -163,37 +166,49 @@ class SalesListView(LoginRequiredMixin, ListView):
         return Sales.objects.filter(shop_owner=self.request.user)
 
 
-@login_required
-def sell_product(request):
-    """Sell a new product"""
-    products = Product.objects.filter(shop_owner=request.user)
-    if request.method != 'POST':
-        form = SalesForm()
-    else:
-        form = SalesForm(data=request.POST)
+class SellProductView(LoginRequiredMixin, FormView):
+    form_class = SalesForm
+    success_url = '/sales/'
+    template_name = 'shop/sales/sell.html'
+    context_object_name = 'form'
 
-        if form.is_valid():
-            product = Product.objects.get(
-                id=int(request.POST['product']),
-                shop_owner=request.user
-            )
-            sale = form.save(commit=False)
-            sale_price = float(sale.quantity_bought) * float(product.price)
-            product.quantity -= int(sale.quantity_bought)
-            amount_given = float(sale.amount_paid) - sale_price
-            # if a customer pays less than the actual price
-            sale.amount_given = amount_given if amount_given >= 0 else 0
-            sale.income = sale_price
-            sale.shop_owner = request.user
-            sale.product = product
-            product.save()
-            sale.save()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products = Product.objects.filter(shop_owner=self.request.user)
+        context['products'] = products
+        return context
 
-            return redirect('shop:sales')
-
-    return render(request, 'shop/sales/sell.html', {'form': form, 'products': products})
+    def form_valid(self, form):
+        product = Product.objects.get(
+            id=int(self.request.POST['product']),
+            shop_owner=self.request.user
+        )
+        sale = form.save(commit=False)
+        sale_price = float(sale.quantity_bought) * float(product.price)
+        product.quantity -= int(sale.quantity_bought)
+        amount_given = float(sale.amount_paid) - sale_price
+        # if a customer pays less than the actual price
+        sale.amount_given = amount_given if amount_given >= 0 else 0
+        sale.income = sale_price
+        sale.shop_owner = self.request.user
+        sale.product = product
+        product.save()
+        sale.save()
+        return super().form_valid(form)
 
 # TODO transactions pdf
+
+
+@login_required
+def generate_receipt(request, sale_id):
+    """Generate receipt for each transaction"""
+    sale = Sales.objects.get(id=sale_id, shop_owner=request.user)
+    html_template = render_to_string('shop/pdf.html', {'sale': sale})
+    pdf_file = HTML(string=html_template).write_pdf()
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = f'inline;filename=sold_product_{sale_id}.pdf'
+    return response
+
 # TODO styling and responsivity
 # TODO filter the sales according to period
 # TODO implement the search product functionality
