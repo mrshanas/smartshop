@@ -1,0 +1,67 @@
+{% load tz %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <style>
+        .pdf{
+            display:grid;
+            grid-template-columns 1fr 1fr;
+            grid-template-rows: auto;
+            grid-template-areas: 
+            "shop receipt"
+            "content content";
+        }
+        .pdf__shop{
+            text-align:center;
+            grid-area: shop;
+        }
+        .pdf__receipt{
+            grid-area: receipt;
+        }
+        article{
+            grid-area: content;
+        }
+    </style>
+</head>
+<body>
+    <main class="pdf">
+        <div class="pdf__shop">
+            <h1>Nasmart shop</h1>
+        </div>
+        <div class="pdf__receipt">
+            <small>
+                {% timezone "Africa/Nairobi" %}
+                    {{ sale.paid_at }}
+                {% endtimezone %}
+            </small>
+        </div>
+        <article>
+            <div class="">
+                {{ sale.product }}
+            </div>
+           <div class="">
+            {{ sale.shop_owner }}
+           </div>
+           <div class="">
+               {{ sale.amount_given }}
+           </div>
+           <div class="">
+               {{ sale.amount_paid }}
+           </div>
+           <div class="">
+               {{ sale.product }}
+           </div>
+           <div class="">
+               {{ sale.quantity_bought }}
+           </div>
+        </article>
+        <footer>
+            Karibu Tena
+        </footer>
+    </main>
+</body>
+</html>
