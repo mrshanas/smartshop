@@ -54,7 +54,6 @@ You can find a live demo of the project at 👉 [pos-smartshop.herokuapp.com](ht
  - Internationalization and Translation
  - Adding a favicon
  - API JWT Authentication
- - Generating pdf's for each transaction
  - Searching functionality
  
  # Issues
