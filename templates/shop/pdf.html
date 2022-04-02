@@ -1,67 +1,95 @@
+
 {% load tz %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receipt</title>
-    <style>
-        .pdf{
-            display:grid;
-            grid-template-columns 1fr 1fr;
-            grid-template-rows: auto;
-            grid-template-areas: 
-            "shop receipt"
-            "content content";
-        }
-        .pdf__shop{
-            text-align:center;
-            grid-area: shop;
-        }
-        .pdf__receipt{
-            grid-area: receipt;
-        }
-        article{
-            grid-area: content;
-        }
-    </style>
-</head>
-<body>
-    <main class="pdf">
-        <div class="pdf__shop">
-            <h1>Nasmart shop</h1>
-        </div>
-        <div class="pdf__receipt">
-            <small>
-                {% timezone "Africa/Nairobi" %}
-                    {{ sale.paid_at }}
-                {% endtimezone %}
-            </small>
-        </div>
-        <article>
-            <div class="">
-                {{ sale.product }}
-            </div>
-           <div class="">
-            {{ sale.shop_owner }}
-           </div>
-           <div class="">
-               {{ sale.amount_given }}
-           </div>
-           <div class="">
-               {{ sale.amount_paid }}
-           </div>
-           <div class="">
-               {{ sale.product }}
-           </div>
-           <div class="">
-               {{ sale.quantity_bought }}
-           </div>
-        </article>
-        <footer>
-            Karibu Tena
-        </footer>
-    </main>
-</body>
-</html>
+<div bgcolor="#f6f6f6" style="color: #333; height: 100%; width: 100%;" height="100%" width="100%">
+    <h2 style="text-align:center;">Risiti</h2>
+    <table bgcolor="#f6f6f6" cellspacing="0" style="border-collapse: collapse; padding: 40px; width: 100%;height:100vh" width="100%">
+        <tbody>
+            <tr>
+                <td width="5px" style="padding: 0;"></td>
+                <td style="clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 10px 0;">
+                    <table width="100%" cellspacing="0" style="border-collapse: collapse;">
+                        <tbody>
+                            <tr>
+                                <td style="color: #000; font-size: 12px; padding: 0; text-align: center;" align="center">
+                                    Tarehe ya malipo<br /> <br>
+                                    {% timezone "Africa/Nairobi" %}
+                                        {{ sale.paid_at }}
+                                    {% endtimezone %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td width="5px" style="padding: 0;"></td>
+            </tr>
+
+            <tr>
+                <td width="5px" style="padding: 0;"></td>
+                <td bgcolor="#FFFFFF" style="border: 1px solid #000; clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 0;">
+                    <table width="100%" style="background: #fff; border-bottom: 1px solid #eee; border-collapse: collapse; color: #999;">
+                        <tbody>
+                            <tr>
+                                <td width="50%" style="padding: 20px;"><strong style="color: #333; font-size: 24px;">Tsh {{ sale.amount_paid|floatformat }}</strong></td>
+                                <td align="right" width="50%" style="padding: 20px;">Imelipwa</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td style="padding: 0;"></td>
+                <td width="5px" style="padding: 0;"></td>
+            </tr>
+            <tr>
+                <td width="5px" style="padding: 0;"></td>
+                <td style="border: 1px solid #000; border-top: 0; clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 0;">
+                    <table cellspacing="0" style="border-collapse: collapse; border-left: 1px solid #000; margin: 0 auto; max-width: 600px;">
+                        <tbody>
+                            <tr>
+                                <td valign="top"  style="padding: 20px;">
+                                    <h3
+                                        style="
+                                            border-bottom: 1px solid #000;
+                                            color: #000;
+                                            font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+                                            font-size: 18px;
+                                            font-weight: bold;
+                                            line-height: 1.2;
+                                            margin: 0;
+                                            margin-bottom: 15px;
+                                            padding-bottom: 5px;
+                                        "
+                                    >
+                                        Summary
+                                    </h3>
+                                    <table cellspacing="0" style="border-collapse: collapse; margin-bottom: 40px;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding: 5px 0;">Bidhaa Iliyonunuliwa</td>
+                                                <td align="right" style="padding: 5px 0;">{{ sale.product }} - {{ sale.quantity_bought}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px 0;">Bei ya bidhaa</td>
+                                                <td align="right" style="padding: 5px 0;">{{ sale.product.price|floatformat }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px 0;">Pesa iliyorudishwa (Chenji) </td>
+                                                <td align="right" style="padding: 5px 0;">{{ sale.amount_given|floatformat }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;">Jumla</td>
+                                                <td align="right" style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;">{{ sale.income|floatformat }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td width="5px" style="padding: 0;"></td>
+            </tr>
+
+           
+        </tbody>
+    </table>
+    <h6 style="text-align:center;">Karibu Tena Nasmart</h6>
+</div>
