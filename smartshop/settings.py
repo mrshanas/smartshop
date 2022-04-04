@@ -2,8 +2,10 @@
 
 import os
 import environ
-from pathlib import Path
 import django_heroku
+
+from pathlib import Path
+from datetime import timedelta
 
 env = environ.Env(DEBUG=(bool, False))
 
@@ -58,13 +60,19 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     )
 
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=5),
+    'SIGNING_KEY': env('JWT_SECRET'),
 }
 
 SITE_ID = 1
