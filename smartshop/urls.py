@@ -11,4 +11,5 @@ urlpatterns = [
     # rest_framework
     path('api/v1/', include('api.urls')),
     path('api/v1/auth/', include('rest_framework.urls'))
+
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

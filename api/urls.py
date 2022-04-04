@@ -1,7 +1,9 @@
-from django.urls import path
+from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView, TokenRefreshView)
 
 from .views import ProductListAndCreateView, CategoryListAndCreateView, SalesListAndCreateView
 
@@ -14,11 +16,15 @@ schema_view = get_schema_view(
         license=openapi.License(name='MIT License')
     ),
     public=True,
-    permission_classes=[permissions.AllowAny, ]
+    permission_classes=[permissions.IsAuthenticated, ]
 )
 
 
 urlpatterns = [
+    # auth
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
     # urls
     path('products/', ProductListAndCreateView.as_view()),
     path('categories/', CategoryListAndCreateView.as_view(), ),
