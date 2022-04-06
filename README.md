@@ -27,7 +27,7 @@ _Use this test data to login and preview the project_
 
 > username: testuser
 >
-> password: mrshanas
+> password: enterapp
 
 # Contributing to this project
 
